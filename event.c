@@ -18,6 +18,7 @@ void
 mainloop(int shape_event)
 {
 	XEvent ev;
+	Client *c;
 
 	for (;;) {
 		getevent(&ev);
@@ -80,6 +81,12 @@ mainloop(int shape_event)
 			break;
 		case EnterNotify:
 			enter(&ev.xcrossing);
+			if(mouse_on_top==1)  {
+			 c = getclient(ev.xcrossing.window,0);
+			 XMapRaised(dpy, c->parent);
+			 top(c);
+			 active(c);
+			} 
 			break;
 		case ReparentNotify:
 			reparent(&ev.xreparent);

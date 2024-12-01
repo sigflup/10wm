@@ -21,6 +21,8 @@ char *version[] = {
 	"9wm version 1.4.1, Copyright (c) 2018 multiple authors", 0,
 };
 
+int mouse_on_top = 0;
+
 Display *dpy;
 ScreenInfo *screens;
 int initting;
@@ -122,6 +124,8 @@ main(int argc, char *argv[])
 #ifndef DEBUG
 		fprintf(stderr,"9wm: WARNING! debug option enabled but debug code not compiled in!\nDebug info may not be complete!\n");
 #endif
+		} else if (strcmp(argv[i], "-mouseontop")==0) {
+		 	mouse_on_top = 1;
 		} else if (strcmp(argv[i], "-font") == 0 && i + 1 < argc)
 			fname = argv[++i];
 		else if (strcmp(argv[i], "-term") == 0 && i + 1 < argc)
