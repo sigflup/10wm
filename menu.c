@@ -56,10 +56,6 @@ void do_menu_item(menu_entry_t *a, XButtonEvent *e) {
   case CLOSE:
    delete(selectwin(1, &shift, s));
    break;
-  case KILL:
-   break;
-  case ICONIFY:
-   break;
   case LOGOUT:
    exit(0);
    break;

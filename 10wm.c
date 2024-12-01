@@ -266,11 +266,11 @@ main(int argc, char *argv[])
 
 
         add_entry(SPAWN,   "xterm",   "xterm");	
+	add_entry(SPAWN,   "firefox", "firefox");
         add_entry(RESHAPE, "reshape", (char *)0);
 	add_entry(MOVE,    "move",    (char *)0);
         add_entry(CLOSE,   "close",   (char *)0);
-	add_entry(KILL,    "kill",    (char *)0); 
-	add_entry(ICONIFY, "iconify", (char *)0);
+	add_entry(SPAWN,   "xkill",   "xkill"); 
 	add_entry(LOGOUT,  "logout",  (char *)0);
 
 
