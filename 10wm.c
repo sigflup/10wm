@@ -18,7 +18,7 @@
 #include "fns.h"
 
 char *version[] = {
-	"9wm version 1.4.1, Copyright (c) 2018 multiple authors", 0,
+	"10wm is a complete hack of 9wm" , 0,
 };
 
 int mouse_on_top = 0;
@@ -82,7 +82,7 @@ sigchld(int signum)
 void
 usage(void)
 {
-	fprintf(stderr, "usage: 9wm [-version] [-cursor cursor] [-border] [-font fname] [-term prog] [-active color] [-inactive color] [exit|restart]\n");
+	fprintf(stderr, "usage: 10wm [-v] [-m] [-c cursor] [-b] [-f fname] [-a color] [-i color]\n");
 	exit(1);
 }
 
@@ -111,6 +111,7 @@ int
 main(int argc, char *argv[])
 {
 	int i, do_exit, do_restart;
+	int opt;
 	char *fname;
 	int shape_event, dummy;
 	myargv = argv;		/* for restart */
@@ -118,53 +119,39 @@ main(int argc, char *argv[])
 	do_exit = do_restart = 0;
 	font = 0;
 	fname = 0;
-	for (i = 1; i < argc; i++)
-		if (strcmp(argv[i], "-debug") == 0) {
-			debug++;
-#ifndef DEBUG
-		fprintf(stderr,"9wm: WARNING! debug option enabled but debug code not compiled in!\nDebug info may not be complete!\n");
-#endif
-		} else if (strcmp(argv[i], "-mouseontop")==0) {
-		 	mouse_on_top = 1;
-		} else if (strcmp(argv[i], "-font") == 0 && i + 1 < argc)
-			fname = argv[++i];
-		else if (strcmp(argv[i], "-term") == 0 && i + 1 < argc)
-			termprog = argv[++i];
-		else if (strcmp(argv[i], "-version") == 0) {
-			fprintf(stderr, "%s\n", version[0]);
-			exit(0);
-		} else if (strcmp(argv[i],"-border") == 0)
-			border++;
-		else if (strcmp(argv[i],"-cursor")  == 0 && i + 1 < argc) {
-			i++;
-			if (strcmp(argv[i],"v1") == 0)
-				curs = 1;
-			else if (strcmp(argv[i],"blit") == 0)
-				curs = 2;
-		} else if ( (strcmp(argv[i], "-active") == 0 || strcmp(argv[i], "-inactive") == 0) && i + 1 < argc) {
-#ifdef COLOR
-			if(argv[i][1] == 'a')
-				activestr = argv[++i];
-			else
-				inactivestr = argv[++i];
-#else
-			fprintf(stderr,"9wm: border set but COLOR not defined\n");
-			i++;
-#endif
-		} else if (argv[i][0] == '-')
-			usage();
-		else
-			break;
-	for (; i < argc; i++)
-		if (strcmp(argv[i], "exit") == 0)
-			do_exit++;
-		else if (strcmp(argv[i], "restart") == 0)
-			do_restart++;
-		else
-			usage();
 
-	if (do_exit && do_restart)
-		usage();
+	while((opt = getopt(argc, argv, "vmc:b:f:a:i:")) != -1) {
+	 switch(opt) {
+	  case 'v':
+	   printf("%s\n", version[0]);
+	   exit(0);
+	   break;
+	  case 'm':
+	   mouse_on_top = 1;
+	   break;
+	  case 'c':
+	   if(strcmp(optarg, "v1") == 0)
+	    curs = 1;
+	   else if(strcmp(optarg, "blit")==0)
+	    curs = 2;
+	   break;
+	  case 'b':
+	   border++;
+	   break;
+	  case 'f':
+	   fname = strdup(optarg);
+	   break;
+	  case 'a':
+	   activestr = strdup(optarg);
+	   break;
+	  case 'i':
+	   inactivestr= strdup(optarg);
+	   break;
+	  default:
+	   usage();
+	   break;
+	 }
+	}
 
 	shell = (char *) getenv("SHELL");
 	if (shell == NULL)

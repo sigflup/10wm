@@ -1,4 +1,4 @@
-CFLAGS += -DSHAPE -DCOLOR -Wall -pedantic -ansi -D_XOPEN_SOURCE -I/usr/X11R6/include -std=c99
+CFLAGS += -w -DSHAPE -DCOLOR -Wall -pedantic -ansi -D_XOPEN_SOURCE -I/usr/X11R6/include -std=c99
 LDLIBS = -L/usr/X11R6/lib -lXext -lX11
 PREFIX ?= /usr
 BIN = $(DESTDIR)$(PREFIX)/bin
