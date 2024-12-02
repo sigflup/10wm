@@ -95,7 +95,6 @@ enum {
 	BLIT
 };
 
-extern int mouse_on_top;
 
 /* main.c */
 extern Display		*dpy;

@@ -21,7 +21,6 @@ char *version[] = {
 	"10wm is a complete hack of 9wm" , 0,
 };
 
-int mouse_on_top = 0;
 
 Display *dpy;
 ScreenInfo *screens;
@@ -82,7 +81,7 @@ sigchld(int signum)
 void
 usage(void)
 {
-	fprintf(stderr, "usage: 10wm [-v] [-s] [-c cursor] [-b] [-f fname] [-a color] [-i color]\n");
+	fprintf(stderr, "usage: 10wm [-v] [-c cursor] [-b] [-f fname] [-a color] [-i color]\n");
 	exit(1);
 }
 
@@ -120,14 +119,11 @@ main(int argc, char *argv[])
 	font = 0;
 	fname = 0;
 
-	while((opt = getopt(argc, argv, "vsc:b:f:a:i:")) != -1) {
+	while((opt = getopt(argc, argv, "vc:b:f:a:i:")) != -1) {
 	 switch(opt) {
 	  case 'v':
 	   printf("%s\n", version[0]);
 	   exit(0);
-	   break;
-	  case 's':
-	   mouse_on_top = 1;
 	   break;
 	  case 'c':
 	   if(strcmp(optarg, "v1") == 0)
