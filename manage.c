@@ -23,7 +23,8 @@ manage(Client * c, int mapped)
 	XWMHints *hints;
 
 	trace("manage", c, 0);
-	XSelectInput(dpy, c->window, ColormapChangeMask | EnterWindowMask | PropertyChangeMask | FocusChangeMask);
+	XSelectInput(dpy, c->window, ColormapChangeMask | EnterWindowMask | 
+			LeaveWindowMask | PropertyChangeMask | FocusChangeMask);
 
 	/*
 	 * Get loads of hints 

@@ -80,13 +80,17 @@ mainloop(int shape_event)
 			fprintf(stderr, "9wm: SelectionRequest (this should not happen)\n");
 			break;
 		case EnterNotify:
-			enter(&ev.xcrossing);
+			//enter(&ev.xcrossing);
 			if(mouse_on_top==1)  {
 			 c = getclient(ev.xcrossing.window,0);
 			 //XMapRaised(dpy, c->parent);
 			 //top(c);
 			 active(c);
 			} 
+			break;
+		case LeaveNotify:
+			c = getclient(ev.xcrossing.window,0);
+			XUngrabButton(dpy,AnyButton,AnyModifier,c->parent);
 			break;
 		case ReparentNotify:
 			reparent(&ev.xreparent);
