@@ -22,7 +22,7 @@ setactive(Client * c, int on)
 		return;
 	}
 	if (on) {
-		XUngrabButton(dpy, AnyButton, AnyModifier, c->parent);
+	//	XUngrabButton(dpy, AnyButton, AnyModifier, c->parent);
 		XSetInputFocus(dpy, c->window, RevertToPointerRoot, timestamp());
 		if (c->proto & Ptakefocus)
 			sendcmessage(c->window, wm_protocols, wm_take_focus, 0);

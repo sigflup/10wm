@@ -83,8 +83,8 @@ mainloop(int shape_event)
 			enter(&ev.xcrossing);
 			if(mouse_on_top==1)  {
 			 c = getclient(ev.xcrossing.window,0);
-			 XMapRaised(dpy, c->parent);
-			 top(c);
+			 //XMapRaised(dpy, c->parent);
+			 //top(c);
 			 active(c);
 			} 
 			break;
