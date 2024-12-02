@@ -39,7 +39,15 @@ mainloop(int shape_event)
 				fprintf(stderr, "9wm: unknown ev.type %d\n", ev.type);
 			break;
 		case ButtonPress:
-			button(&ev.xbutton);
+			c = getclient(ev.xbutton.window,0);
+			if(c) {
+			 XMapRaised(dpy, c->parent);
+			 top(c);
+			 active(c);
+			} else
+			 if(ev.xbutton.button == Button3)
+			  do_menu_item(menuhit(&ev), &ev);
+			//button(&ev.xbutton);
 			break;
 		case ButtonRelease:
 			break;
